@@ -1,0 +1,54 @@
+# This disables importing of system environmental variables.
+# They are imported by default.
+@env on
+
+# Override the default shell.
+@shell /bin/bash
+
+# Load local dotenv files (these are then globally available).
+@dotenv .env
+@dotenv .env.sample
+@dotenv some_other_file
+
+# This are local variables but still accessible in tasks.
+@var HI = "hey"
+@var TOKEN = "sometoken"
+@var EMAIL = "m@m.com"
+@var PASSWORD = "pass"
+@var EDITOR = "vim"
+
+# All the environment variables can be also accessed by $ENVVARNAME.
+
+@task dev "Start a dev server" does
+	# This is a comment
+	export SOMEVAR=somevalue
+	node server.js $HI
+end
+
+@task clean "Cleans the obj files" does
+	rm .obj
+end
+
+@task greet "Greets a user" does
+	@echo "Hi user $TOKEN or $VARNAME $EMAIL"
+end
+
+@task stack "Starts a Docker stack" does
+	docker-compose -f stack.yml up
+end
+
+@task todo "Shows all todos in source files and count them" does
+	grep -ir "TODO|FIXME" . | wc -l
+end
+
+@task test1 "For testing 1" does
+	unknown-command
+	echo "test1"
+	ls -lha
+end
+
+@task test2 "For testing 2" does
+	echo "test1"
+	ls -lha
+	docker-compose -f samples/stack.yml up
+end
