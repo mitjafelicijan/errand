@@ -1,9 +1,10 @@
-# This disables importing of system environmental variables.
-# They are imported by default.
 @env on
 
 # Override the default shell.
 @shell /bin/bash
+
+# Assure that program is installed.
+@assure docker-compose
 
 # Load local dotenv files (these are then globally available).
 @dotenv .env
@@ -17,38 +18,43 @@
 @var PASSWORD = "pass"
 @var EDITOR = "vim"
 
-# All the environment variables can be also accessed by $ENVVARNAME.
-
 @task dev "Start a dev server" does
-	# This is a comment
-	export SOMEVAR=somevalue
-	node server.js $HI
+  echo "..." $HI
 end
 
 @task clean "Cleans the obj files" does
-	rm .obj
+  rm .obj
 end
 
-@task greet "Greets a user" does
-	@echo "Hi user $TOKEN or $VARNAME $EMAIL"
+@task greet "Greets the user" does
+  echo "Hi user $TOKEN or $WINDOWID $EMAIL"
 end
 
-@task stack "Starts a Docker stack" does
-	docker-compose -f stack.yml up
+@task stack "Starts Docker stack" does
+  docker-compose -f stack.yml up
 end
 
 @task todo "Shows all todos in source files and count them" does
-	grep -ir "TODO|FIXME" . | wc -l
+  grep -ir "TODO|FIXME" . | wc -l
 end
 
 @task test1 "For testing 1" does
-	unknown-command
-	echo "test1"
-	ls -lha
+  unknown-command
+  echo "test1"
+  ls -lha
 end
 
 @task test2 "For testing 2" does
-	echo "test1"
-	ls -lha
-	docker-compose -f samples/stack.yml up
+  echo "test1"
+  ls -lha
+  docker-compose -f samples/stack.yml up
 end
+
+@task api::ping "Pings the API" does
+  curl -X GET http://localhost:3000/api/ping
+end
+
+@task api::auth "Pings the API" does
+  curl -X GET http://localhost:3000/api/ping
+end
+
