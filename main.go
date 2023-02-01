@@ -145,7 +145,7 @@ func (e *Errand) evalVariableLine(line string) (string, string) {
 func (e *Errand) evalTaskLine(line string) Task {
 	var task Task
 
-	taskLineRegex := regexp.MustCompile(`^@task\s+(\w+)\s+"([\w\s]+)"\s+.*$`)
+	taskLineRegex := regexp.MustCompile(`^@task\s+([\w::]+)\s+"([\w\s]+)"\s+.*$`)
 	match := taskLineRegex.FindStringSubmatch(line)
 
 	task.Name = match[1]
