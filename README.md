@@ -14,6 +14,12 @@ More coming soon...
 end
 ```
 
+## Installation
+
+All the pre-built binaries are available on https://files.mitjafelicijan.com/errand/.
+
+Download the binary for your platform and put it in your PATH.
+
 ## Testing Errand with test tasks
 
 ```sh
