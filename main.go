@@ -13,8 +13,9 @@ import (
 	"time"
 )
 
-const version = "0.1.1"
-const author = "Mitja Felicijan"
+// This is placeholder for the version number.
+// This gets replaced by the build script.
+var Version = "0.0.0"
 
 type Errand struct {
 	ErrandFile        string
@@ -45,6 +46,13 @@ type Variable struct {
 
 // Check if Errand or Errandfile exists in the current directory.
 func (e *Errand) CheckForDefaultFiles() error {
+	// Check if environment variable ERRANDFILE is set.
+	if errandFile := os.Getenv("ERRANDFILE"); errandFile != "" {
+		e.ErrandFile = errandFile
+		return nil
+	}
+
+	// Otherwise check for default files.
 	var files = []string{"Errandfile", "Errand"}
 
 	for _, file := range files {
@@ -94,6 +102,19 @@ func (e *Errand) ParseFile() error {
 				}
 				e.AssureCommands = append(e.AssureCommands, cmd)
 			}
+			continue
+		}
+
+		// Use different shell.
+		if strings.HasPrefix(line, "@shell") {
+			var shell = e.evalShellLine(line)
+
+			// Check if shell is available.
+			if _, err := exec.LookPath(shell); err != nil {
+				fmt.Println("Error: Shell", shell, "is not available.")
+				os.Exit(1)
+			}
+
 			continue
 		}
 
@@ -163,7 +184,7 @@ func (e *Errand) evalVariableLine(line string) (string, string) {
 func (e *Errand) evalTaskLine(line string) Task {
 	var task Task
 
-	taskLineRegex := regexp.MustCompile(`^@task\s+([\w::]+)\s+"([\w\s]+)"\s+.*$`)
+	taskLineRegex := regexp.MustCompile(`^@task\s+([\w:]+)\s+"(.*)"\s+.*$`)
 	match := taskLineRegex.FindStringSubmatch(line)
 
 	task.Name = match[1]
@@ -184,6 +205,18 @@ func (e *Errand) evalEnvLine(line string) bool {
 	}
 
 	return strings.Compare(match[1], "on") == 0
+}
+
+func (e *Errand) evalShellLine(line string) string {
+	varLineRegex := regexp.MustCompile(`^@shell\s+(.+)$`)
+	match := varLineRegex.FindStringSubmatch(line)
+
+	if len(match) == 0 {
+		fmt.Println("Error: Invalid @shell directive")
+		os.Exit(1)
+	}
+
+	return match[1]
 }
 
 func (e *Errand) evalAssureLine(line string) string {
@@ -323,9 +356,9 @@ func main() {
 
 	// Display version and exit if -v flag is present.
 	if versionFlag {
-		fmt.Printf("Errand %s (built for %s)\n", version, runtime.GOARCH)
+		fmt.Printf("Errand %s (built for %s)\n", Version, runtime.GOARCH)
 		fmt.Printf("A simple task runner for the command line.\n")
-		fmt.Printf("Copyright (C) 2022-%d %s.\n", time.Now().Year(), author)
+		fmt.Printf("Copyright (C) 2022-%d Mitja Felicijan.\n", time.Now().Year())
 		fmt.Printf("License BSD 2-Clause: <https://opensource.org/licenses/BSD-2-Clause>\n")
 		fmt.Printf("This is free software: you are free to change and redistribute it.\n")
 		fmt.Printf("There is NO WARRANTY, to the extent permitted by law.\n")

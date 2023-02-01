@@ -18,7 +18,7 @@
 @var PASSWORD = "pass"
 @var EDITOR = "vim"
 
-@task dev "Start a dev server" does
+@task dev "Test chars .:'}{]!//" does
   echo "..." $HI
 end
 
