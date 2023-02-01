@@ -21,6 +21,7 @@ type Errand struct {
 	Variables         []Variable
 	Tasks             []Task
 	IncludeSysEnvVars bool
+	AssureCommands    []string
 }
 
 // Command type.
@@ -76,6 +77,23 @@ func (e *Errand) ParseFile() error {
 
 		// Skip empty lines and comments.
 		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+
+		// Check if line is a assure declaration.
+		if strings.HasPrefix(line, "@assure") {
+			var assure = e.evalAssureLine(line)
+			var commands []string = strings.Split(assure, " ")
+
+			// Only append commands that are not already in the list.
+			for _, cmd := range commands {
+				for _, c := range e.AssureCommands {
+					if c == cmd {
+						continue
+					}
+				}
+				e.AssureCommands = append(e.AssureCommands, cmd)
+			}
 			continue
 		}
 
@@ -166,6 +184,18 @@ func (e *Errand) evalEnvLine(line string) bool {
 	}
 
 	return strings.Compare(match[1], "on") == 0
+}
+
+func (e *Errand) evalAssureLine(line string) string {
+	varLineRegex := regexp.MustCompile(`^@assure\s+(.+)$`)
+	match := varLineRegex.FindStringSubmatch(line)
+
+	if len(match) == 0 {
+		fmt.Println("Error: Invalid @assure directive")
+		os.Exit(1)
+	}
+
+	return match[1]
 }
 
 // Replaces variables in commands with their values.
@@ -260,6 +290,30 @@ func (e *Errand) executeTask(taskName string) error {
 	return nil
 }
 
+func (e *Errand) assureCommandIsInstalled() error {
+	var missingCommands []string = []string{}
+
+	for _, cmd := range e.AssureCommands {
+		_, err := exec.LookPath(cmd)
+		if err != nil {
+			missingCommands = append(missingCommands, cmd)
+		}
+	}
+
+	if len(missingCommands) > 0 {
+		fmt.Println("In order to use this project you will need additional tools installed.")
+		fmt.Println("Error: The following commands are not installed:")
+
+		for _, cmd := range missingCommands {
+			fmt.Println("  * ", cmd)
+		}
+
+		os.Exit(1)
+	}
+
+	return nil
+}
+
 func main() {
 	// Parse command line arguments.
 	var versionFlag bool
@@ -308,6 +362,12 @@ func main() {
 
 	// Replace variables in commands.
 	err = errand.substituteVariables()
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	// Check if the required commands are installed.
+	err = errand.assureCommandIsInstalled()
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
