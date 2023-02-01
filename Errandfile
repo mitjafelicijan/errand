@@ -57,4 +57,3 @@ end
 @task api::auth "Pings the API" does
   curl -X GET http://localhost:3000/api/ping
 end
-
