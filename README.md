@@ -7,7 +7,7 @@ More coming soon...
 ## Simple example
 
 ```ruby
-@task stack "Starts Docker stack" does
+@task demo "A job doing something" does
   # Shell commands are executed in the current directory
   ls -l
   pwd
