@@ -16,7 +16,7 @@ end
 
 ## Installation
 
-All the pre-built binaries are available on https://files.mitjafelicijan.com/errand/.
+All the pre-built binaries are available on [https://files.mitjafelicijan.com/errand/](https://files.mitjafelicijan.com/errand/).
 
 Download the binary for your platform and put it in your PATH.
 
