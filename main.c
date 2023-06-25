@@ -7,7 +7,7 @@
 int main() {
   FILE *in_file;
   char *erdfilename = "Errandfile";
-
+  
   in_file = fopen(erdfilename, "r");
   if (in_file == NULL) {
 	fprintf(stderr, "Error: could not open file %s with error %s\n", erdfilename, strerror(errno));
