@@ -7,6 +7,20 @@ Errand is simple task runner that serves as an alternative to GNU Make. But
 instead of using it as a build system Errand should only be used for simple
 tasks.
 
+## Some facts about the project
+
+- By default shells are pure so if you would want to have access to lets say
+  `.bashrc` you would need to source it inside of a task. This way the task
+  don't rely on personal settings and therefor are more likely to be
+  reproducible on other machines.
+- All of the contents of a task gets ran in one shell so you don't need `\` like
+  you do in Make. You can also reuse outputs of previous lines. The tasks are
+  behaving more like a shell script.
+- By default all environmental variables get passed to Errand but you can
+  disable this by setting `@env off` at the beginning of the `Errandfile`. This
+  goes against reproducibility but the benefits outweigh the costs in this
+  case.
+
 ## Simple example
 
 ```ruby
@@ -39,3 +53,24 @@ make clean && CC=clang make && ./erd
 make clean && CC=gcc make && ./erd
 make clean && CC=tcc make && ./erd
 ```
+
+## Caveats and recommendations
+
+### Multi-line expressions are currently not provided.
+
+Instead of this:
+	
+```sh
+for ((i=1; i<=10; i++))
+do
+  echo $i
+done
+```
+	
+Do the following instead:
+
+```sh
+for i in {1..10}; do echo $i; done
+```
+
+Or make an external script and call it with `bash script.sh`.
