@@ -81,12 +81,14 @@ int main(int argc, char *argv[]) {
 		parse_taskdef(lines[i], op, name, description, MAX_LINE_LENGTH);
 		remove_quotes(description);
 
-		printf("  %-15s %s\n", name, description);		
+		printf("  %-14s %s\n", name, description);		
 	  }
 	}
 	return 1;
   }
-  
+
+  // TODO: Execute provided targets via arguments.
+
   free(lines);
   return 0;
 }
