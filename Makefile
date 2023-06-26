@@ -1,5 +1,4 @@
-# CC=clang
-CFLAGS=-O0 -Wall -Wextra -ggdb
+CFLAGS=-O3 -Wall -Wextra
 LIBS=
 
 erd: main.c
