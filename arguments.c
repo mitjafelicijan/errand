@@ -4,17 +4,8 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-#include "constants.c"
-
-typedef struct {
-  char *erdfilename;
-  bool stacktrace;
-  bool help;
-  bool version;
-  char **tasks;
-  size_t num_tasks;
-} Arguments;
-
+#include "arguments.h"
+#include "constants.h"
 
 Arguments argparse(int argc, char *argv[]) {
   Arguments args = {0};

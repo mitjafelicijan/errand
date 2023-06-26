@@ -1,7 +1,10 @@
-#include "constants.c"
-#include "arguments.c"
-#include "document.c"
-#include "shell.c"
+#include <stdlib.h>
+#include <string.h>
+
+#include "constants.h"
+#include "arguments.h"
+#include "document.h"
+#include "shell.h"
 
 int main(int argc, char *argv[]) {
   Arguments args = argparse(argc, argv);

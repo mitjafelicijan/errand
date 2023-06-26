@@ -4,12 +4,8 @@
 #include <errno.h>
 #include <ctype.h>
 
-#include "constants.c"
-
-typedef struct {
-  char **lines;
-  size_t num_lines;
-} Lines;
+#include "constants.h"
+#include "document.h"
 
 void str_trim(char *str) {
   size_t len = strlen(str);

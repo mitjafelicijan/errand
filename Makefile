@@ -1,8 +1,17 @@
-CFLAGS=-O3 -Wall -Wextra -std=gnu99 -pedantic
-LIBS=
+CFLAGS = -O3 -Wall -Wextra -std=gnu99 -pedantic
+LIBS =
 
-erd: main.c
-	$(CC) $(CFLAGS) -o erd main.c $(LIBS)
+TARGET = erd
+SOURCES = $(wildcard *.c)
+OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(OBJDIR)/%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	-rm erd
+	rm -f *.o $(TARGET)

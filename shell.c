@@ -2,7 +2,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "constants.c"
+#include "constants.h"
 
 void run_task(char *shell, char *script) {
   char * erdfifo = FIFO_FILE;

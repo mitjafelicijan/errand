@@ -1,3 +1,4 @@
 erd
 *.tar.gz
 *.md5
+*.o
