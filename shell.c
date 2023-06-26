@@ -2,8 +2,10 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "constants.c"
+
 void run_task(char *shell, char *script) {
-  char * erdfifo = "/tmp/erdfifo";
+  char * erdfifo = FIFO_FILE;
   mkfifo(erdfifo, 0666);
   FILE *fp;
   char command[4*1024];

@@ -4,5 +4,8 @@
       gcc
       clang
       tinycc
+      bash
+      zsh
+      fish
     ];
 }
