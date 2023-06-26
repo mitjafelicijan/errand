@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+
+  mysql:
+    image: mysql:8
+    command: --sql_mode=""
+    privileged: true
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: feedcast-local
