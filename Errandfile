@@ -12,40 +12,40 @@
 @dotenv some_other_file
 
 # This are local variables but still accessible in tasks.
-@var HI = "hey"
-@var TOKEN = "sometoken"
-@var EMAIL = "m@m.com"
-@var PASSWORD = "pass"
-@var EDITOR = "vim"
+@var HI "hey"
+@var TOKEN "sometoken"
+@var EMAIL "m@m.com"
+@var PASSWORD "pass"
+@var EDITOR "vim"
 
 @task dev "Test chars .:'}{]!//"
   echo "..." $HI
-end
+@end
 
 @task clean "Cleans the obj files"
   rm .obj
-end
+@end
 
 @task greet "Greets the user"
   echo "Hi user $TOKEN or $WINDOWID $EMAIL"
-end
+@end
 
 @task stack "Starts Docker stack"
   docker-compose -f stack.yml up
-end
+@end
 
 @task todo "Shows all todos in source files and count them"
   grep -ir "TODO|FIXME" . | wc -l
-end
+@end
 
 @task test1 "For testing 1"
   unknown-command
   echo "test1"
   ls -lha
-end
+@end
 
 @task test2 "For testing 2"
   echo "test1"
   ls -lha
   docker-compose -f samples/stack.yml up
-end
+@end
