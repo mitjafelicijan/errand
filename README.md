@@ -18,8 +18,7 @@ tasks.
   behaving more like a shell script.
 - By default all environmental variables get passed to Errand but you can
   disable this by setting `@env off` at the beginning of the `Errandfile`. This
-  goes against reproducibility but the benefits outweigh the costs in this
-  case.
+  goes against reproducibility but the benefits outweigh the costs in this case.
 
 ## Simple example
 
@@ -55,6 +54,10 @@ make clean && CC=tcc make && ./erd
 ```
 
 ## Caveats and recommendations
+
+### Syntax highlighting
+
+You can use Ruby language for syntax highlighting.
 
 ### Multi-line expressions are currently not provided.
 
