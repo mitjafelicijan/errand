@@ -18,42 +18,34 @@
 @var PASSWORD = "pass"
 @var EDITOR = "vim"
 
-@task dev "Test chars .:'}{]!//" does
+@task dev "Test chars .:'}{]!//"
   echo "..." $HI
 end
 
-@task clean "Cleans the obj files" does
+@task clean "Cleans the obj files"
   rm .obj
 end
 
-@task greet "Greets the user" does
+@task greet "Greets the user"
   echo "Hi user $TOKEN or $WINDOWID $EMAIL"
 end
 
-@task stack "Starts Docker stack" does
+@task stack "Starts Docker stack"
   docker-compose -f stack.yml up
 end
 
-@task todo "Shows all todos in source files and count them" does
+@task todo "Shows all todos in source files and count them"
   grep -ir "TODO|FIXME" . | wc -l
 end
 
-@task test1 "For testing 1" does
+@task test1 "For testing 1"
   unknown-command
   echo "test1"
   ls -lha
 end
 
-@task test2 "For testing 2" does
+@task test2 "For testing 2"
   echo "test1"
   ls -lha
   docker-compose -f samples/stack.yml up
-end
-
-@task api::ping "Pings the API" does
-  curl -X GET http://localhost:3000/api/ping
-end
-
-@task api::auth "Pings the API" does
-  curl -X GET http://localhost:3000/api/ping
 end
