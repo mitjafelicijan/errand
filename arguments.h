@@ -9,7 +9,7 @@
 
 typedef struct {
   char *erdfilename;
-  bool stacktrace;
+  bool debug;
   bool help;
   bool version;
   char **tasks;

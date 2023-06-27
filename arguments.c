@@ -12,10 +12,10 @@
 
 Arguments argparse(int argc, char *argv[]) {
   Arguments args = {0};
-  args.stacktrace = false;
+  args.debug = false;
   args.help = false;
   args.erdfilename = "Errandfile";
-  
+
   for (int i=1; i<argc; ++i) {
 	if (strcmp(argv[i], "-f") == 0) {
 	  if (i+1 < argc) {
@@ -32,13 +32,13 @@ Arguments argparse(int argc, char *argv[]) {
 		exit(1);
 	  }
 	}
-	else if (strcmp(argv[i], "--trace") == 0) {
-	  args.stacktrace = true;
+	else if (strcmp(argv[i], "--debug") == 0 || strcmp(argv[i], "-d") == 0) {
+	  args.debug = true;
 	}
-	else if (strcmp(argv[i], "--help") == 0) {
+	else if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
 	  args.help = true;
 	}
-	else if (strcmp(argv[i], "--version") == 0) {
+	else if (strcmp(argv[i], "--version") == 0 || strcmp(argv[i], "-v") == 0) {
 	  args.version = true;
 	}
 	else {
