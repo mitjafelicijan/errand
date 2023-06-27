@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: BSD-2-Clause
+// Copyright (c) 2023, Mitja Felicijan <m@mitjafelicijan.com>
+
 #include <stdio.h>
 #include <sys/stat.h>
 #include <unistd.h>

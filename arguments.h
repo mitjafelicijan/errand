@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: BSD-2-Clause
+// Copyright (c) 2023, Mitja Felicijan <m@mitjafelicijan.com>
+
 #ifndef ARGUMENTS_H
 #define ARGUMENTS_H
 
