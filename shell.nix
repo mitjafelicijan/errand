@@ -4,6 +4,7 @@
       gcc
       clang
       tinycc
+      musl
       bash
       zsh
       fish

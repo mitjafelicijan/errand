@@ -1,4 +1,4 @@
-CFLAGS = -O3 -Wall -Wextra -std=gnu99 -pedantic
+CFLAGS = $(EXTRA_FLAGS) -O3 -Wall -Wextra -std=gnu99 -pedantic
 LIBS =
 
 TARGET = erd
@@ -14,4 +14,7 @@ $(OBJDIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o $(TARGET)
+	rm -f *.o $(TARGET) callgrind.out.*
+
+valgrind:
+	valgrind -s --leak-check=full ./erd

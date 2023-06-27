@@ -76,6 +76,6 @@ int main(int argc, char *argv[]) {
   for (size_t i=0; i<args.num_tasks; ++i) {
 	printf(" - %lu: %s\n", i, args.tasks[i]);
   }
-  
+
   return 0;
 }

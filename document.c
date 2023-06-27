@@ -82,14 +82,14 @@ Lines read_erdfile(char *erdfilename) {
 		exit(1);
 	  }
 	  l.lines = temp;
-
+	  
 	  l.lines[l.num_lines] = new_line;
 	  l.num_lines++;
 	}
   }
 
   fclose(in_file);
-
+  
   return l;
 }
 

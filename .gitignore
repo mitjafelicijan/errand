@@ -2,3 +2,4 @@ erd
 *.tar.gz
 *.md5
 *.o
+callgrind.out.*
