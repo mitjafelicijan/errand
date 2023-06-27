@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "constants.h"
 #include "arguments.h"
@@ -13,17 +14,25 @@ int main(int argc, char *argv[]) {
   Arguments args = argparse(argc, argv);
   
   if (args.version) {
-	printf("Errand %s\n", VERSION);
+    time_t ctime = time(NULL);
+    struct tm* local = localtime(&ctime);
+    int year = local->tm_year + 1900;
+
+	printf("Errand %s - Simple task runner\n", VERSION);
+	printf("Copyright (C) 2022-%d Mitja Felicijan\n", year);
+	printf("License BSD 2-Clause: <https://opensource.org/licenses/BSD-2-Clause>\n");
+	printf("This is free software: you are free to change and redistribute it.\n");
+	printf("There is NO WARRANTY, to the extent permitted by law.\n");
 	return 0;
   }
   
   if (args.help) {
 	printf("Usage: erd [options] [task] ...\n\n");
 	printf("Options:\n");
-	printf(" %-10s %s\n", "-f [FILE]", "Use a different file (default Errandfile).");
-	printf(" %-10s %s\n", "--help", "Print this message and exit.");
-	printf(" %-10s %s\n", "--trace", "Show trace of the parsed file.");	
-	printf(" %-10s %s\n", "--version", "Print the version number and exit.");	
+	printf("  %-15s %s\n", "-f [FILE]", "Use a different file (default Errandfile).");
+	printf("  %-15s %s\n", "-h --help", "Print this message and exit.");
+	printf("  %-15s %s\n", "-d --debug", "Show debug of the parsed file.");	
+	printf("  %-15s %s\n", "-v --version", "Print the version number and exit.");	
 	return 0;
   }
 
@@ -31,13 +40,13 @@ int main(int argc, char *argv[]) {
   // a temporary array that is used for parsing etc.
   Lines l = read_erdfile(args.erdfilename);
   
-  // Display stacktrace if `--trace` is in arguments and exit.
-  if (args.stacktrace) {
-	printf("Stack trace:\n");
+  // Display debug information if `--debug` is in arguments and exit.
+  if (args.debug) {
+	printf("Contents of parsed file:\n");
 	for (size_t i=0; i<l.num_lines; ++i) {
 	  printf("  %lu: %s\n", i+1, l.lines[i]);
 	}
-	exit(1);
+	return 0;
   }
 
   // Display all available targets in provided Errandfile
@@ -56,12 +65,12 @@ int main(int argc, char *argv[]) {
 		printf("  %-14s %s\n", name, description);		
 	  }
 	}
-	return 1;
+	return 0;
   }
 
   // TODO: Execute provided targets via arguments.
   printf(">> Errandfile: %s\n", args.erdfilename);
-  printf(">> Stacktrace: %d\n", args.stacktrace);
+  printf(">> Debug: %d\n", args.debug);
   printf(">> Tasks:\n");
   
   for (size_t i=0; i<args.num_tasks; ++i) {
