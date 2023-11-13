@@ -7,8 +7,8 @@
 #include <stdio.h>
 
 typedef struct {
-  char **lines;
-  size_t num_lines;
+	char **lines;
+	size_t num_lines;
 } Lines;
 
 void str_trim(char *str);
