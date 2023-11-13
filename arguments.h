@@ -8,14 +8,14 @@
 #include <unistd.h>
 
 typedef struct {
-	char *erdfilename;
-	bool debug;
-	bool help;
-	bool version;
-	char **tasks;
-	size_t num_tasks;
+  char* erdfilename;
+  bool debug;
+  bool help;
+  bool version;
+  char** tasks;
+  size_t num_tasks;
 } Arguments;
 
-Arguments argparse(int argc, char *argv[]);
+Arguments argparse(int argc, char* argv[]);
 
 #endif

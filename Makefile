@@ -16,5 +16,8 @@ $(OBJDIR)/%.o: %.c
 clean:
 	rm -f *.o $(TARGET) callgrind.out.*
 
+format:
+	clang-format -i --style=Chromium *.c *.h
+
 valgrind:
 	valgrind -s --leak-check=full ./erd
