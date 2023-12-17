@@ -20,11 +20,8 @@ int main(int argc, char* argv[]) {
 
     printf("Errand %s - Simple task runner\n", VERSION);
     printf("Copyright (C) 2022-%d Mitja Felicijan\n", year);
-    printf(
-        "License BSD 2-Clause: "
-        "<https://opensource.org/licenses/BSD-2-Clause>\n");
-    printf(
-        "This is free software: you are free to change and redistribute it.\n");
+    printf("License BSD 2-Clause: <https://opensource.org/licenses/BSD-2-Clause>\n");
+    printf("This is free software: you are free to change and redistribute it.\n");
     printf("There is NO WARRANTY, to the extent permitted by law.\n");
     return 0;
   }
