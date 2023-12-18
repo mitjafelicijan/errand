@@ -29,12 +29,10 @@ int main(int argc, char* argv[]) {
   if (args.help) {
     printf("Usage: erd [options] [task] ...\n\n");
     printf("Options:\n");
-    printf("  %-15s %s\n", "-f [FILE]",
-           "Use a different file (default Errandfile).");
+    printf("  %-15s %s\n", "-f [FILE]", "Use a different file (default Errandfile).");
     printf("  %-15s %s\n", "-h --help", "Print this message and exit.");
     printf("  %-15s %s\n", "-d --debug", "Show debug of the parsed file.");
-    printf("  %-15s %s\n", "-v --version",
-           "Print the version number and exit.");
+    printf("  %-15s %s\n", "-v --version", "Print the version number and exit.");
     return 0;
   }
 

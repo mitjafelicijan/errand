@@ -16,10 +16,13 @@ void str_trim(char* str) {
   size_t start = 0;
   size_t end = len - 1;
 
-  while (start < len && isspace((unsigned char)str[start]))
+  while (start < len && isspace((unsigned char)str[start])) {
     start++;
-  while (end > start && isspace((unsigned char)str[end]))
+  }
+  
+  while (end > start && isspace((unsigned char)str[end])) {
     end--;
+  }
 
   size_t shift = end - start + 1;
   if (start > 0) {
@@ -37,11 +40,7 @@ void rm_quotes(char* str) {
   }
 }
 
-void parse_taskdef(const char* text,
-                   char* op,
-                   char* name,
-                   char* description,
-                   size_t max_length) {
+void parse_taskdef(const char* text, char* op, char* name, char* description, size_t max_length) {
   char copy[max_length];
   strncpy(copy, text, max_length);
 
@@ -65,8 +64,7 @@ Lines read_erdfile(char* erdfilename) {
   FILE* in_file;
   in_file = fopen(erdfilename, "r");
   if (in_file == NULL) {
-    fprintf(stderr, "Error: could not open file %s with error %s\n",
-            erdfilename, strerror(errno));
+    fprintf(stderr, "Error: could not open file %s with error %s\n", erdfilename, strerror(errno));
     exit(1);
   }
 
